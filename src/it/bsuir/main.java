@@ -3,7 +3,7 @@ package it.bsuir;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-public class Main {
+public class main {
     private static final int TIME = 5000;
     private static RandomAccessFile mFile;
     private static ArrayList mList = new ArrayList();
