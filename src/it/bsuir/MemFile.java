@@ -1,4 +1,4 @@
-package it.bsuir.memory;
+package it.bsuir;
 
 import java.io.RandomAccessFile;
 import java.util.ArrayList;

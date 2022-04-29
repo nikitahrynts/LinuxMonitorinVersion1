@@ -1,7 +1,5 @@
 package it.bsuir;
 
-import it.bsuir.memory.MemFile;
-
 public class Main {
     public static void main(String[] inArguments) throws Throwable {
         System.out.print("Running... ");
