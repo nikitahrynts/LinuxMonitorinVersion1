@@ -4,63 +4,82 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) throws Throwable {
-        MemFile memFile = new MemFile();
-        System.out.println("Running...");
+    private static final int TIME = 5000;
+    private static RandomAccessFile mFile;
+    private static ArrayList mList = new ArrayList();
+
+    public static void main(String[] inArguments)
+            throws Throwable {
+        System.out.print("Running... ");
         int counter = 0;
-        long end = System.currentTimeMillis() + memFile.TIME;
+        long end = System.currentTimeMillis() + TIME;
         while (System.currentTimeMillis() < end) {
-            memFile.load();
+            load();
             ++counter;
         }
-        double count = counter / ((double) memFile.TIME / 1000);
-        System.out.println(count + "/s (" + (1 / count) + ")");
+        double count = counter / ((double) TIME / 1000);
+        System.out.println(
+                count + "/s (" + (1 / count) + ")");
     }
 
-    public static class MemFile {
-        public static final int TIME = 5000;
+    private static void load()
+            throws Throwable {
+        mFile = new RandomAccessFile("/proc/meminfo", "r");
+        parse();
+        mFile.close();
+    }
 
-        public static RandomAccessFile randomAccessFile;
+    private static void parse()
+            throws Throwable {
+        // Skip the old header.
+        mFile.readLine();
+        mFile.readLine();
+        mFile.readLine();
+        // Store the values.
+        mList.clear();
+        store(); // total
+        store(); // free
 
-        public static ArrayList arrayList = new ArrayList<>();
+        store(); // shared
 
-        public static void load() throws Throwable {
-            randomAccessFile = new RandomAccessFile("/proc/meminfo", "r");
-            parse();
-            randomAccessFile.close();
-        }
+        store(); // buffers
 
-        private static void parse() throws Throwable {
-            randomAccessFile.readLine();
-            randomAccessFile.readLine();
-            randomAccessFile.readLine();
-            arrayList.clear();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-            store();
-        }
+        store(); // cached
 
-        private static void store() throws Throwable {
-            String line = randomAccessFile.readLine();
-            int i = 14;
-            while (line.charAt(i) == ' ') {
-                ++i;
-            }
-            int j = line.indexOf(' ', i);
-            arrayList.add(line.substring(i, j));
-        }
+        store(); // swap cached
 
+        store(); // active
+
+        store(); // inactive
+
+        store(); // high
+
+        store(); // high free
+
+        store(); // low
+
+        store(); // low free
+
+        store(); // swap
+
+        store(); // swap free
 
     }
+
+    private static void store()
+            throws Throwable {
+        // Get the next value.
+        String line = mFile.readLine();
+        // Skip fixed name length.
+        int i = 14;
+        // Skip column padding.
+        while (line.charAt(i) == ' ') {
+            ++i;
+        }
+        // Find the end of the value.
+        int j = line.indexOf(' ', i);
+        // Store the value as a String.
+        mList.add(line.substring(i, j));
+    }
+
 }
