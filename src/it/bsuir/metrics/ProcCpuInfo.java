@@ -11,7 +11,7 @@ public class ProcCpuInfo {
 
     public static void load() throws Throwable {
         randomAccessFile = new RandomAccessFile("/proc/cpuinfo", "r");
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 11; i++) {
             randomAccessFile.readLine();
         }
         String cpuCoresLine = randomAccessFile.readLine();
