@@ -1,9 +1,8 @@
-package it.bsuir.memory;
+package it.bsuir.rates;
 
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-public class MemFile {
+public class MeminfoFile {
     public static final int TIME = 5000;
     public static ArrayList mList = new ArrayList();
     public static byte[] mBuffer = new byte[4096];
