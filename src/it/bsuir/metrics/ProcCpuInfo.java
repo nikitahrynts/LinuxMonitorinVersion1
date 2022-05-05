@@ -2,6 +2,7 @@ package it.bsuir.metrics;
 
 import java.io.RandomAccessFile;
 
+//Gathering metrics using pseudo files
 public class ProcCpuInfo {
     private static RandomAccessFile randomAccessFile;
 

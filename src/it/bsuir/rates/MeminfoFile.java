@@ -3,6 +3,7 @@ package it.bsuir.rates;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
+//Gathering total memory rates using pseudo files
 public class MeminfoFile {
 
     public static final int TIME = 5000;
