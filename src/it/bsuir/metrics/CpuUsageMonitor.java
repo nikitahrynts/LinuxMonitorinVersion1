@@ -29,6 +29,7 @@ public class CpuUsageMonitor {
             for (Double double1 : listValues) {
                 sum += double1;
             }
+            System.out.println(sum/listValues.size());
             return sum / listValues.size();
         } catch (Exception e) {
             e.printStackTrace();

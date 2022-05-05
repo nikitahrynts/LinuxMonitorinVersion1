@@ -21,7 +21,7 @@ public class Main {
         System.out.println("/////////////////////////////////////////////");
         ProcCpuInfo.load();
         System.out.println("/////////////////////////////////////////////");
-        System.out.println(CpuUsageMonitor.printUsage());
+        CpuUsageMonitor.printUsage();
         System.out.println("/////////////////////////////////////////////");
     }
 }
