@@ -9,19 +9,12 @@ import java.lang.reflect.Modifier;
 public class CpuUsageMonitor {
 
     public static void printUsage() {
-        OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        for (Method method : operatingSystemMXBean.getClass().getDeclaredMethods()) {
-            method.setAccessible(true);
-            if (method.getName().startsWith("get")
-                    && Modifier.isPublic(method.getModifiers())) {
-                Object value;
-                try {
-                    value = method.invoke(operatingSystemMXBean);
-                } catch (Exception e) {
-                    value = e;
-                } // try
-                System.out.println(method.getName() + " = " + value);
-            } // if
-        } // for
+        OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean) ManagementFactory
+                .getOperatingSystemMXBean();
+
+        while (true) {
+            System.out.println(bean.getProcessCpuLoad());
+            System.out.println(bean.getSystemCpuLoad());
+        }
     }
 }
