@@ -1,26 +1,27 @@
 package it.bsuir.rates;
 
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class MeminfoFile {
-    public static final int TIME = 5000;
-    public static ArrayList mList = new ArrayList();
-    public static byte[] mBuffer = new byte[4096];
-    private static int mOffSet;
 
-    private static int[] mOffsets;
-    private static int[] mLengths;
-    private static int mField;
+    public static final int TIME = 5000;
+    private static RandomAccessFile mFile;
+    private static ArrayList mList = new ArrayList();
+
+    public static void load() throws Throwable {
+        mFile = new RandomAccessFile("/proc/meminfo", "r");
+        parse();
+        mFile.close();
+    }
 
     public static void parse() throws Throwable {
-        mOffSet = 0;
-        mField = 0;
-
-        while (mBuffer[mOffSet++] != '\n') ;
-        while (mBuffer[mOffSet++] != '\n') ;
-        while (mBuffer[mOffSet++] != '\n') ;
-        mOffSet += 14;
+        //Skip the old header
+        mFile.readLine();
+        mFile.readLine();
+        mFile.readLine();
         mList.clear();
+        //Types of memory storage
         store();
         store();
         store();
@@ -38,17 +39,13 @@ public class MeminfoFile {
     }
 
     public static void store() throws Throwable {
-        while (mBuffer[mOffSet] == ' ') {
-            ++mOffSet;
+        String line = mFile.readLine();
+        int i = 14;
+        while (line.charAt(i) == ' ') {
+            ++i;
         }
-        int offSet = mOffSet;
-        while (mBuffer[mOffSet] != ' ') {
-            ++mOffSet;
-        }
-        mOffsets[mField] = offSet;
-        mLengths[mField++] = mOffSet - offSet;
-        mList.add(new String(mBuffer, offSet, mOffSet - offSet));
-        mOffSet += 18;
+        int j = line.indexOf(' ', i);
+        mList.add(line.substring(i, j));
     }
 
 }

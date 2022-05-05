@@ -16,6 +16,5 @@ public class ProcCpuInfo {
         cores = cpuCoresLine.split(" ");
         int numCores = Integer.parseInt(cores[9]) * 2;
         System.out.println("Number of processors: " + numCores);
-        randomAccessFile.close();
     }
 }
