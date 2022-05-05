@@ -1,7 +1,6 @@
 package it.bsuir.metrics;
 
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
 
 public class ProcCpuInfo {
     private static RandomAccessFile randomAccessFile;

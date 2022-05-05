@@ -18,7 +18,7 @@ public class Main {
             ++counter;
         }
         double count = counter / ((double) TIME / 1000);
-        System.out.println(count + "s/ (" + (1 / count) + ")");
+        System.out.println(count + "s/(" + (1 / count) + ")");
         //ProcStat.load();
         ProcCpuInfo.load();
     }
