@@ -8,8 +8,8 @@ public class MeminfoFile {
     public static byte[] mBuffer = new byte[4096];
     private static int mOffSet;
 
-    private static int[] mOffsets = new int[200];
-    private static int[] mLengths = new int[200];
+    private static int[] mOffsets;
+    private static int[] mLengths;
     private static int mField;
 
     public static void parse() throws Throwable {
