@@ -1,8 +1,8 @@
-package it.bsuir.metrics;
+/*package it.bsuir.metrics;
 
 import java.io.RandomAccessFile;
 
-/*public class ProcStat {
+public class ProcStat {
     private static RandomAccessFile randomAccessFile;
     private static String[] times;
 
@@ -22,5 +22,4 @@ import java.io.RandomAccessFile;
         int idleTime = Integer.parseInt(times[5]);
 
     }
-}
-*/
+}*/

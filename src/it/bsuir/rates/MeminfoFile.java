@@ -1,4 +1,4 @@
-/*package it.bsuir.rates;
+package it.bsuir.rates;
 
 import java.util.ArrayList;
 
@@ -51,4 +51,4 @@ public class MeminfoFile {
         mOffSet += 18;
     }
 
-}*/
+}
