@@ -4,7 +4,6 @@ import java.io.RandomAccessFile;
 
 public class ProcCpuInfo {
     private static RandomAccessFile randomAccessFile;
-    private static String[] cores;
 
     public static void load() throws Throwable {
         randomAccessFile = new RandomAccessFile("/proc/cpuinfo", "r");
@@ -12,8 +11,9 @@ public class ProcCpuInfo {
             randomAccessFile.readLine();
         }
         String cpuCoresLine = randomAccessFile.readLine();
+        String[] cores = new String[cpuCoresLine.length()];
         cores = cpuCoresLine.split(" ");
-        int numCores = Integer.parseInt(cores[9]) * 2;
+        int numCores = Integer.parseInt(cores[3]) * 2;
         System.out.println("Number of processors: " + numCores);
     }
 }
