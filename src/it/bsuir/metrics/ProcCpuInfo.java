@@ -12,7 +12,7 @@ public class ProcCpuInfo {
         }
         String cpuCoresLine = randomAccessFile.readLine();
         String[] cores = cpuCoresLine.split(" ");
-        int numCores = Integer.parseInt(cores[3]) * 2;
+        int numCores = Integer.parseInt(cores[2]) * 2;
         System.out.println("Number of processors: " + numCores);
     }
 }
