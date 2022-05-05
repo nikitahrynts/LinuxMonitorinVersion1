@@ -31,7 +31,7 @@ public class Main {
                 count + "/s (" + (1 / count) + ")");
 
         //ProcStat.load();*/
-        ProcCpuInfo.load();
+        //ProcCpuInfo.load();
         monitor = new PerformanceMonitor();
         for(int i=0 ; i<10000 ; i++){
             start();
