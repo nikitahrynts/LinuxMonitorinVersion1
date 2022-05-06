@@ -13,7 +13,6 @@ import java.util.TimerTask;
 4.	divide the fourth column ("idle") by the total time, to get the fraction of time spent being idle
 5.	subtract the previous fraction from 1.0 to get the time spent being   not   idle
 6	multiple by   100   to get a percentage
-
 */
 public class ProcStat {
 
@@ -26,7 +25,7 @@ public class ProcStat {
 
         public CpuUtilizationTask() throws FileNotFoundException {
             this.percentFormatter = NumberFormat.getPercentInstance();
-            percentFormatter.setMaximumFractionDigits(2);
+            percentFormatter.setMaximumFractionDigits(4);
             var statFile = new File("/proc/stat");
             this.statPointer = new RandomAccessFile(statFile, "r");
         }
@@ -47,7 +46,9 @@ public class ProcStat {
                 var idleTimeDelta = idleTime - previousIdleTime;
                 var totalTimeDelta = totalTime - previousTotalTime;
                 var utilization = 1 - ((double) idleTimeDelta) / (double) totalTimeDelta;
-                System.out.println(percentFormatter.format(utilization));
+                System.out.println("CPU usage: "
+                        + percentFormatter.format(utilization)
+                        + "%");
 
                 previousIdleTime = idleTime;
                 previousTotalTime = totalTime;
