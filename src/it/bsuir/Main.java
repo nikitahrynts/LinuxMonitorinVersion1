@@ -1,6 +1,6 @@
 package it.bsuir;
 
-import it.bsuir.metrics.CpuUsageMonitor;
+import it.bsuir.metrics.ProcStat;
 import it.bsuir.metrics.ProcCpuInfo;
 import it.bsuir.rates.MeminfoFile;
 
@@ -21,7 +21,7 @@ public class Main {
         System.out.println("/////////////////////////////////////////////");
         ProcCpuInfo.load();
         System.out.println("/////////////////////////////////////////////");
-        double cpuUsage = CpuUsageMonitor.printUsage();
+        double cpuUsage = ProcStat.printUsage();
         System.out.println("CPU usage:" + cpuUsage + "%");
         System.out.println("/////////////////////////////////////////////");
     }

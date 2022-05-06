@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CpuUsageMonitor {
+public class ProcStat {
 
     public static double printUsage() {
         try {
@@ -29,7 +29,7 @@ public class CpuUsageMonitor {
             for (Double double1 : listValues) {
                 sum += double1;
             }
-            double cpuUsage = sum / listValues.size() / 2.0 * 100;
+            double cpuUsage = ((sum / listValues.size() / 2.0) - 1) * 100;
             return cpuUsage;
         } catch (Exception e) {
             e.printStackTrace();
