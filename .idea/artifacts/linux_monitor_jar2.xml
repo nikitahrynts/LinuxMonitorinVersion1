@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="linux-monitor:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/linux_monitor_jar2</output-path>
+    <root id="archive" name="linux-monitor.jar">
+      <element id="module-output" name="linux-monitor" />
+    </root>
+  </artifact>
+</component>
