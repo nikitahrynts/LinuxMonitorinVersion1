@@ -24,8 +24,8 @@ public class Main {
         System.out.println("/////////////////////////////////////////////");
         ProcCpuInfo.load();
         System.out.println("/////////////////////////////////////////////");
-        final var period = Duration.ofSeconds(1);
-        new Timer().schedule(new ProcStat.CpuUtilizationTask(), 500, period.toMillis());
+        final var period = Duration.ofSeconds(5);
+        new Timer().schedule(new ProcStat.CpuUtilizationTask(), 0, period.toMillis());
         System.out.println("/////////////////////////////////////////////");
     }
 }
