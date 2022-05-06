@@ -4,6 +4,17 @@ import java.io.*;
 import java.text.NumberFormat;
 import java.util.TimerTask;
 
+/*
+/proc/stat contains following data:
+        user    nice   system  idle      iowait irq   softirq  steal  guest  guest_nice
+1.	read the first line of   /proc/stat
+2.	discard the first word of that first line   (it's always cpu)
+3.	sum all of the times found on that first line to get the total time
+4.	divide the fourth column ("idle") by the total time, to get the fraction of time spent being idle
+5.	subtract the previous fraction from 1.0 to get the time spent being   not   idle
+6	multiple by   100   to get a percentage
+
+*/
 public class ProcStat {
 
     public static class CpuUtilizationTask extends TimerTask {
