@@ -20,7 +20,7 @@ public class CpuUsageMonitor {
                 long cput1 = getCpuT();
                 Thread.sleep(delay);
                 long cput2 = getCpuT();
-                double cpuproc = (1000d * (cput2 - cput1)) / (double) delay;
+                double cpuproc = (1000 * (cput2 - cput1)) / (double) delay;
                 listValues.add(cpuproc);
             }
             listValues.remove(0);
