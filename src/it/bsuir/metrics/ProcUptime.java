@@ -10,7 +10,7 @@ import java.sql.Time;
 	[0] uptime is the duration in seconds that system has run
 	[1] idletime is the duraiton in seconds when processor was not being used by any program
 	[return] uptime
-*/
+ */
 public class ProcUptime {
     private static RandomAccessFile randomAccessFile;
 
