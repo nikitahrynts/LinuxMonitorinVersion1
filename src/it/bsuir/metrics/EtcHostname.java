@@ -10,7 +10,7 @@ public class EtcHostname {
     private static RandomAccessFile randomAccessFile;
 
     public static void load() throws Throwable {
-        randomAccessFile = new RandomAccessFile("/proc/hostname", "r");
+        randomAccessFile = new RandomAccessFile("/etc/hostname", "r");
         String line = randomAccessFile.readLine();
         System.out.println("Hostname: " + line);
     }
