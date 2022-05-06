@@ -29,7 +29,7 @@ public class ProcStat {
             for (Double double1 : listValues) {
                 sum += double1;
             }
-            double cpuUsage = ((sum / listValues.size() / 2.0) - 1) * 100;
+            double cpuUsage = (sum / listValues.size() - 1) / 2 * 100;
             return cpuUsage;
         } catch (Exception e) {
             e.printStackTrace();
