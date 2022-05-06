@@ -4,8 +4,9 @@ import java.io.*;
 import java.text.NumberFormat;
 import java.util.TimerTask;
 
+//Gathering metrics using pseudo files
 /*
-/proc/stat contains following data:
+cat /proc/stat contains following data:
         user    nice   system  idle      iowait irq   softirq  steal  guest  guest_nice
 1.	read the first line of   /proc/stat
 2.	discard the first word of that first line   (it's always cpu)
@@ -47,8 +48,7 @@ public class ProcStat {
                 var totalTimeDelta = totalTime - previousTotalTime;
                 var utilization = 1 - ((double) idleTimeDelta) / (double) totalTimeDelta;
                 System.out.println("CPU usage: "
-                        + percentFormatter.format(utilization)
-                        + "%");
+                        + percentFormatter.format(utilization));
 
                 previousIdleTime = idleTime;
                 previousTotalTime = totalTime;
