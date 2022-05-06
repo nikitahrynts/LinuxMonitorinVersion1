@@ -43,7 +43,6 @@ public class CpuUsageMonitor {
         String line = reader.readLine();
         Pattern pattern = Pattern.compile("\\D+(\\d+)\\D+(\\d+)\\D+(\\d+)\\D+(\\d+)");
         Matcher m = pattern.matcher(line);
-        System.out.println(m);
 
         long cpuUser = 0;
         long cpuSystem = 0;
