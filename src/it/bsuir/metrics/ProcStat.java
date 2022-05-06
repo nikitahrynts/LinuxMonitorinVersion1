@@ -1,55 +1,65 @@
 package it.bsuir.metrics;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProcStat {
 
-    public static double printUsage() {
-        try {
+    public static class CpuUtilizationTask extends TimerTask {
 
-            long delay = 50;
-            List<Double> listValues = new ArrayList<>();
-            for (int i = 0; i < 100; i++) {
-                long firstCpuUsage = getCpuT();
-                Thread.sleep(delay);
-                long secondCpuUsage = getCpuT();
-                double cpuProc = (1000d * (secondCpuUsage - firstCpuUsage)) / (double) delay;
-                listValues.add(cpuProc);
-            }
-            listValues.remove(0);
-            listValues.remove(listValues.size() - 1);
-            double sum = 0;
-            for (Double double1 : listValues) {
-                sum += double1;
-            }
-            double cpuUsage = (sum / listValues.size() - 1) / 2 * 100;
-            return cpuUsage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
+        private final String STAT_FILE_HEADER = "cpu  ";
+        private final NumberFormat percentFormatter;
+        private final RandomAccessFile statPointer;
+        long previousIdleTime = 0, previousTotalTime = 0;
+
+        public CpuUtilizationTask() throws FileNotFoundException {
+            this.percentFormatter = NumberFormat.getPercentInstance();
+            percentFormatter.setMaximumFractionDigits(2);
+            var statFile = new File("/proc/stat");
+            /* by using the RandomAcessFile, we're able to keep an open file stream for
+             * as long as this object lives, making further file openings unnecessary */
+            this.statPointer = new RandomAccessFile(statFile, "r");
         }
 
-    }
+        @Override
+        public void run() {
 
-    private static long getCpuT() throws FileNotFoundException, IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("/proc/stat"));
-        String line = reader.readLine();
-        Pattern pattern = Pattern.compile("\\D+(\\d+)\\D+(\\d+)\\D+(\\d+)\\D+(\\d+)");
-        Matcher m = pattern.matcher(line);
+            try {
+                var values = statPointer.readLine()
+                        .substring(STAT_FILE_HEADER.length())
+                        .split(" ");
 
-        long cpuUser = 0;
-        long cpuSystem = 0;
-        if (m.find()) {
-            cpuUser = Long.parseLong(m.group(1));
-            cpuSystem = Long.parseLong(m.group(3));
+                /* because Java doesn't have unsigned primitive types, we have to use the boxed
+                 * Long's parseUsigned method. It does what it says it does.
+                 * The rest of the arithmetic can go on as normal.
+                 * I've seen solutions reading the value as integers. They're NOT!*/
+                var idleTime = Long.parseUnsignedLong(values[3]);
+                var totalTime = 0L;
+                for (String value : values) {
+                    totalTime += Long.parseUnsignedLong(value);
+                }
+
+                var idleTimeDelta = idleTime - previousIdleTime;
+                var totalTimeDelta = totalTime - previousTotalTime;
+                var utilization = 1 - ((double) idleTimeDelta) / totalTimeDelta;
+
+                /* Again, this is showing one more advantage of doing idiomatic Java
+                 * we're doing locale aware percentage formatting */
+                System.out.println(percentFormatter.format(utilization));
+
+                previousIdleTime = idleTime;
+                previousTotalTime = totalTime;
+
+                // take us back to the beginning of the file, so we don't have to reopen it
+                statPointer.seek(0);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
-        return cpuUser + cpuSystem;
     }
 }

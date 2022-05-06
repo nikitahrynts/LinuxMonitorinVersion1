@@ -4,6 +4,9 @@ import it.bsuir.metrics.ProcStat;
 import it.bsuir.metrics.ProcCpuInfo;
 import it.bsuir.rates.MeminfoFile;
 
+import java.time.Duration;
+import java.util.Timer;
+
 import static java.sql.Types.TIME;
 
 public class Main {
@@ -21,8 +24,8 @@ public class Main {
         System.out.println("/////////////////////////////////////////////");
         ProcCpuInfo.load();
         System.out.println("/////////////////////////////////////////////");
-        double cpuUsage = ProcStat.printUsage();
-        System.out.println("CPU usage:" + cpuUsage + "%");
+        final var period = Duration.ofSeconds(1);
+        new Timer().schedule(new ProcStat.CpuUtilizationTask(), 0, period.toMillis());
         System.out.println("/////////////////////////////////////////////");
     }
 }
