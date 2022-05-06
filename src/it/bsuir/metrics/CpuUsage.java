@@ -20,6 +20,7 @@ public class CpuUsage {
             threadState.add(info.getThreadState());
             threadCpuTime.add(threadMXBean.getThreadCpuTime(threadID));
         }
+        System.out.println("<Threads>");
         for (int i = 0; i < threadList.size(); i++) {
             System.out.println("Thread name: " + threadList.get(i));
             System.out.println("Thread state: " + threadState.get(i));

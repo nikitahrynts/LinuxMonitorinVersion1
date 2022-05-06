@@ -28,6 +28,7 @@ public class Main {
         ProcCpuInfo.load();
         DiscUsage.load();
         MemoryUsage.load();
+        ProcMeminfo.load();
         CpuUsage.load();
         System.out.println("/////////////////////////////////////////////");
         final var period = Duration.ofSeconds(5);

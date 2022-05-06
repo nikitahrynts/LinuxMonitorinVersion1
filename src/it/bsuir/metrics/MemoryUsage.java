@@ -20,7 +20,7 @@ public class MemoryUsage {
         double usedMemory = (double) memoryMXBean.getHeapMemoryUsage().getUsed() / CONST;
         double maxMemory = (double) memoryMXBean.getHeapMemoryUsage().getMax() / CONST;
         double committedMemory = (double) memoryMXBean.getHeapMemoryUsage().getCommitted() / CONST;
-        System.out.println("<Memory usage>");
+        System.out.println("<JVM Memory usage>");
         System.out.println(String.format("Initial memory: %.2f GB", initMemory));
         System.out.println(String.format("Used memory: %.2f GB", usedMemory));
         System.out.println(String.format("Max memory: %.2f GB", maxMemory));
