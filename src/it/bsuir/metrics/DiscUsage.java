@@ -7,7 +7,7 @@ public class DiscUsage {
 
     private static final long CONST = 1073741824;
 
-    public static void load() {
+    public static void load() throws Throwable{
         File root = new File("/");
         double totalSpace = (double) root.getTotalSpace() / CONST;
         double freeSpace = (double) root.getFreeSpace() / CONST;
