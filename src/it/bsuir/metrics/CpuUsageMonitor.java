@@ -11,26 +11,26 @@ import java.util.regex.Pattern;
 
 public class CpuUsageMonitor {
 
-    public static double printUsage() throws InterruptedException{
+    public static double printUsage() {
         try {
 
             long delay = 50;
-            List<Double> listValues = new ArrayList<Double>();
+            List<Double> listValues = new ArrayList<>();
             for (int i = 0; i < 100; i++) {
-                long cput1 = getCpuT();
+                long firstCpuUsage = getCpuT();
                 Thread.sleep(delay);
-                long cput2 = getCpuT();
-                double cpuproc = (1000 * (cput2 - cput1)) / (double) delay;
-                listValues.add(cpuproc);
+                long secondCpuUsage = getCpuT();
+                double cpuProc = (1000d * (secondCpuUsage - firstCpuUsage)) / (double) delay;
+                listValues.add(cpuProc);
             }
             listValues.remove(0);
             listValues.remove(listValues.size() - 1);
-            double sum = 0.0;
+            double sum = 0;
             for (Double double1 : listValues) {
                 sum += double1;
             }
-            System.out.println(sum/listValues.size());
-            return sum / listValues.size();
+            double cpuUsage = sum / listValues.size() / 2.0 * 100;
+            return cpuUsage;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
